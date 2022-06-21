@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">YouWatch</string>
+    <string name="Login">Login</string>
+    <string name="Username">username</string>
+    <string name="password">password</string>
+    <string name="display">Don\'t have an account?</string>
+    <string name="create">Sign up</string>
+</resources>
