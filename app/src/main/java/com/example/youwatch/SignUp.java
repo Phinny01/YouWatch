@@ -47,9 +47,9 @@ public class SignUp extends AppCompatActivity {
 
                         if (e == null) {
                             goMainActivity();
+
                         } else {
                             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
