@@ -18,7 +18,7 @@ public class Post extends ParseObject {
         return getString(KEY_DESCRIPTION);
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         put(KEY_DESCRIPTION, description);
     }
 
@@ -26,15 +26,23 @@ public class Post extends ParseObject {
         return getParseFile(KEY_VIDEO);
     }
 
-    public void setVideo(ParseFile video){
+    public void setVideo(ParseFile video) {
         put(KEY_VIDEO, video);
     }
 
-    public void setUser(ParseUser user){
+    public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }
 
     public ParseUser getUser() {
         return getParseUser(KEY_USER);
+    }
+
+    public ParseUser getCategory() {
+        return getParseUser(KEY_CATEGORY);
+    }
+
+    public void setUser(String category) {
+        put(KEY_CATEGORY, category);
     }
 }

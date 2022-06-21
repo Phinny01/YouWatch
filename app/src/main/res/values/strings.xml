@@ -5,4 +5,5 @@
     <string name="password">password</string>
     <string name="display">Don\'t have an account?</string>
     <string name="create">Sign up</string>
+
 </resources>
