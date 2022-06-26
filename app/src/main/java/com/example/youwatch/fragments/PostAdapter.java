@@ -84,6 +84,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             if (video != null) {
                 vvPost.setVideoURI(VideoUri);
+                MediaController mediaController = new MediaController(context);
+                mediaController.setAnchorView(vvPost);
+                mediaController.setMediaPlayer(vvPost);
+                vvPost.setMediaController(mediaController);
                 vvPost.start();
             } else {
                 vvPost.setVideoURI(Uri.parse(""));
