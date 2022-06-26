@@ -23,9 +23,9 @@ public class SignUp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         username = findViewById(R.id.user);
         password = findViewById(R.id.Password);
         btnSubmit = findViewById(R.id.signup);
@@ -46,7 +46,7 @@ public class SignUp extends AppCompatActivity {
                     public void done(ParseException e) {
 
                         if (e == null) {
-                            goMainActivity();
+                            LoginActivity.goMainActivity(v.getContext());
 
                         } else {
                             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
@@ -55,12 +55,5 @@ public class SignUp extends AppCompatActivity {
                 });
             }
         });
-
-    }
-
-    public void goMainActivity() {
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }

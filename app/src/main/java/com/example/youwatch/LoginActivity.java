@@ -2,6 +2,7 @@ package com.example.youwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button loginButton;
-    ImageView ivLogo;
     Button btCreate;
     public static final String message = "Success";
     public static final String errorMessage = "Issue with Login";
@@ -51,12 +51,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                loginUser(username, password);
+                loginUser(username, password, v.getContext());
             }
         });
     }
 
-    private void loginUser(String username, String password) {
+    private void loginUser(String username, String password,Context context ) {
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
@@ -65,17 +65,17 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 } else {
-                    goMainActivity();
+                    goMainActivity(context);
                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void goMainActivity() {
+    public static void goMainActivity(Context context) {
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
     }
 
     private void goSignUp() {
