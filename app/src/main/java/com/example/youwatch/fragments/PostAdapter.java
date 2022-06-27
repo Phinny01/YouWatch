@@ -1,9 +1,11 @@
 package com.example.youwatch.fragments;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private Context context;
     private List<Post> posts;
+    ParseFile video;
 
     public void clear() {
         posts.clear();
@@ -62,7 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return posts.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
 
         private TextView tvUser;
         private VideoView vvPost;
@@ -74,12 +77,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvDescription = itemView.findViewById(R.id.tvDescription);
             vvPost = itemView.findViewById(R.id.vvPost);
             tvUser = itemView.findViewById(R.id.tvUser);
+            itemView.setOnTouchListener(this);
         }
+
         public void bind(Post post) {
 
             tvDescription.setText(post.getDescription());
             tvUser.setText(post.getUser().getUsername());
-            ParseFile video = post.getVideo();
+            video = post.getVideo();
             Uri VideoUri = Uri.parse(video.getUrl());
 
             if (video != null) {
@@ -88,10 +93,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 mediaController.setAnchorView(vvPost);
                 mediaController.setMediaPlayer(vvPost);
                 vvPost.setMediaController(mediaController);
-                vvPost.start();
+
             } else {
                 vvPost.setVideoURI(Uri.parse(""));
             }
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return true;
         }
     }
 }
