@@ -79,7 +79,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUser = itemView.findViewById(R.id.tvUser);
             itemView.setOnTouchListener(this);
         }
+        public void onPrepared() {
 
+            View placeholder = itemView.findViewById(R.id.placeholder);
+            placeholder.setVisibility(View.GONE);
+        }
         public void bind(Post post) {
 
             tvDescription.setText(post.getDescription());
@@ -94,6 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 mediaController.setMediaPlayer(vvPost);
                 vvPost.setMediaController(mediaController);
 
+
             } else {
                 vvPost.setVideoURI(Uri.parse(""));
             }
@@ -101,6 +106,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            onPrepared();
             return true;
         }
     }
