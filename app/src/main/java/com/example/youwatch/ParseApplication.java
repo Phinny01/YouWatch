@@ -8,11 +8,9 @@ import com.parse.ParseObject;
 
 
 public class ParseApplication extends Application {
-
     @Override
     public void onCreate() {
         super.onCreate();
-
         ParseObject.registerSubclass(Post.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("EFj9sAi7ElThEM8TSp0rNuldsGSRhl1oixjpHDBh")

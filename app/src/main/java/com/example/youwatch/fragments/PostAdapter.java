@@ -24,23 +24,21 @@ import com.parse.ParseFile;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-
     private Context context;
     private List<Post> posts;
     ParseFile video;
 
-    public void clear() {
+    private void clear() {
         posts.clear();
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Post> list) {
+    private void addAll(List<Post> list) {
         posts.addAll(list);
         notifyDataSetChanged();
     }
 
     public PostAdapter(Context context, List<Post> posts) {
-
         this.context = context;
         this.posts = posts;
     }
@@ -48,14 +46,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
-
         Post post = posts.get(position);
         holder.bind(post);
     }
@@ -66,39 +62,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
-
         private TextView tvUser;
         private VideoView vvPost;
         private TextView tvDescription;
 
-        public ViewHolder(@NonNull View itemView) {
-
+        private ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             vvPost = itemView.findViewById(R.id.vvPost);
             tvUser = itemView.findViewById(R.id.tvUser);
             itemView.setOnTouchListener(this);
         }
-        public void onPrepared() {
 
+        private void onPrepared() {
             View placeholder = itemView.findViewById(R.id.placeholder);
             placeholder.setVisibility(View.GONE);
         }
-        public void bind(Post post) {
 
+        private void bind(Post post) {
             tvDescription.setText(post.getDescription());
             tvUser.setText(post.getUser().getUsername());
             video = post.getVideo();
             Uri VideoUri = Uri.parse(video.getUrl());
-
             if (video != null) {
                 vvPost.setVideoURI(VideoUri);
                 MediaController mediaController = new MediaController(context);
                 mediaController.setAnchorView(vvPost);
                 mediaController.setMediaPlayer(vvPost);
                 vvPost.setMediaController(mediaController);
-
-
             } else {
                 vvPost.setVideoURI(Uri.parse(""));
             }

@@ -17,38 +17,31 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
-
-    EditText etUsername;
-    EditText etPassword;
-    Button loginButton;
-    Button btCreate;
-    public static final String message = "Success";
-    public static final String errorMessage = "Issue with Login";
-    public static final String TAG = "LoginActivity";
+    private EditText etUsername;
+    private EditText etPassword;
+    private Button loginButton;
+    private Button btCreate;
+    private static final String message = "Success";
+    private static final String errorMessage = "Issue with Login";
+    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         etPassword = findViewById(R.id.etPassword);
         etUsername = findViewById(R.id.etUsername);
         loginButton = findViewById(R.id.button);
         btCreate = findViewById(R.id.btCreate);
-
         btCreate.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 goSignUp();
             }
         });
-
         loginButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password, v.getContext());
@@ -56,12 +49,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String username, String password,Context context ) {
-
+    private void loginUser(String username, String password, Context context) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-
                 if (e != null) {
                     Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 } else {
@@ -73,13 +64,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static void goMainActivity(Context context) {
-
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 
     private void goSignUp() {
-
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }

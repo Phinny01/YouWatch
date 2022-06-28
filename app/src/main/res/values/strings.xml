@@ -7,4 +7,10 @@
     <string name="create">Sign up</string>
     <string name="Logout">Logout</string>
     <string name="description">description</string>
+    <string name="Timeline">timeline</string>
+    <string name="Search">search</string>
+    <string name="Compose">compose</string>
+    <string name="Video">Record a video</string>
+    <string name="Caption">Write a caption</string>
+    <string name="Post">post</string>
 </resources>

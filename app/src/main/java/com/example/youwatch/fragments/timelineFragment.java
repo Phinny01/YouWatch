@@ -29,7 +29,6 @@ public class timelineFragment extends Fragment {
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     RecyclerView rvTimeline;
-    public static final String TAG = "PostFragment ";
 
     public timelineFragment() {
     }
@@ -40,16 +39,15 @@ public class timelineFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_timeline, container, false);
     }
 
-    public void queryPosts() {
-
+    private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(20);
         query.addDescendingOrder(Post.CREATED_AT);
-
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
+
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
             }
@@ -58,7 +56,6 @@ public class timelineFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
         rvTimeline = view.findViewById(R.id.rvTimeline);
         allPosts = new ArrayList<>();
