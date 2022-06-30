@@ -45,13 +45,12 @@ public class ComposeFragment extends Fragment {
     VideoView videoView;
     File videoFile;
     private static final String TAG = "composeFragment";
-    private static final String message_1 = "Error while saving";
-    private static final String message_2 = "caption cannot be empty";
-    private static final String message_3 = "There is no video";
-    private static final String message_4 = "Failed to create directory";
+    private static final String message_1 = "caption cannot be empty";
+    private static final String message_2 = "There is no video";
+    private static final String message_3 = "Failed to create directory";
     private static final String videoFileName = "video.mp4";
     private static final int VIDEO_CAPTURE_ACTIVITY_REQUEST_CODE = 101;
-    Uri selectedVideoUri;
+
 
     public ComposeFragment() {
     }
@@ -81,11 +80,11 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 String caption = etCaption.getText().toString();
                 if (caption.isEmpty()) {
-                    Toast.makeText(getContext(),message_2, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),message_1, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (videoFile == null || videoView == null) {
-                    Toast.makeText(getContext(), message_3, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), message_2, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -107,7 +106,7 @@ public class ComposeFragment extends Fragment {
     private File getVideoFileUri(String fileName) {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES), TAG);
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Toast.makeText(getContext(), message_4, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), message_3, Toast.LENGTH_SHORT).show();
         }
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
@@ -122,7 +121,7 @@ public class ComposeFragment extends Fragment {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Toast.makeText(getContext(), message_2, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), message_1, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 etCaption.setText("");
