@@ -19,7 +19,6 @@ public class SignUp extends AppCompatActivity {
     EditText username;
     EditText password;
     Button btnSubmit;
-    public static final String message = "Something went wrong";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +39,10 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
-                            Activity activity = new Activity();
-                            LoginActivity.setUserLocation(activity, view.getContext());
+                            Location.saveCurrentUserLocation(view.getContext());
                             LoginActivity.goMainActivity(view.getContext());
                         } else {
-                            Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, R.string.signupIssue, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

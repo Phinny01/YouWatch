@@ -10,19 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.youwatch.Location;
-import com.example.youwatch.LoginActivity;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,7 @@ public class timelineFragment extends Fragment {
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     RecyclerView rvTimeline;
+    ParseUser currentUser = ParseUser.getCurrentUser();
 
     public timelineFragment() {
     }
@@ -47,6 +46,7 @@ public class timelineFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.setLimit(20);
         query.addDescendingOrder(Post.CREATED_AT);
+        query.whereNear(Post.KEY_LOCATION, currentUser.getParseGeoPoint(Post.KEY_LOCATION));
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

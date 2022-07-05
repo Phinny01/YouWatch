@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.youwatch.fragments.ComposeFragment;
+import com.example.youwatch.fragments.SearchFragment;
 import com.example.youwatch.fragments.timelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.Search:
                     default:
-                        fragment = new timelineFragment();
+                        fragment = new SearchFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.LogoutButton) {
             ParseUser.logOutInBackground();
-            ParseUser currentUser = ParseUser.getCurrentUser();
             Intent i = new Intent(this, LoginActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -23,9 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button loginButton;
     private Button btCreate;
-    private static final String message = "Success";
-    private static final String errorMessage = "Issue with Login";
-    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +50,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password, Context context) {
-        Activity activity = new Activity();
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
-                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.loginIssue, Toast.LENGTH_SHORT).show();
                 } else {
-                    setUserLocation(activity, context);
+                    Location.saveCurrentUserLocation(context);
                     goMainActivity(context);
-                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.loginSuccess, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -75,9 +72,5 @@ public class LoginActivity extends AppCompatActivity {
     private void goSignUp() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
-    }
-
-    public static void setUserLocation(Activity activity, Context context) {
-        Location.saveCurrentUserLocation(activity, context);
     }
 }
