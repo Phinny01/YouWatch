@@ -1,7 +1,11 @@
 package com.example.youwatch;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.example.youwatch.Location.saveCurrentUserLocation;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static void goMainActivity(Context context) {
+        Activity activity = new Activity();
+        saveCurrentUserLocation(activity, context);
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }

@@ -2,7 +2,6 @@ package com.example.youwatch.fragments;
 
 
 import static android.app.Activity.RESULT_OK;
-
 import static com.parse.Parse.getApplicationContext;
 
 import android.content.Intent;
@@ -16,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +49,6 @@ public class ComposeFragment extends Fragment {
     private static final String videoFileName = "video.mp4";
     private static final int VIDEO_CAPTURE_ACTIVITY_REQUEST_CODE = 101;
 
-
     public ComposeFragment() {
     }
 
@@ -68,7 +65,6 @@ public class ComposeFragment extends Fragment {
         btVideo = view.findViewById(R.id.btVideo);
         btPost = view.findViewById(R.id.btPost);
         videoView = view.findViewById(R.id.videoView);
-
         btVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +76,7 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 String caption = etCaption.getText().toString();
                 if (caption.isEmpty()) {
-                    Toast.makeText(getContext(),message_1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), message_1, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (videoFile == null || videoView == null) {

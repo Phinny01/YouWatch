@@ -1,5 +1,7 @@
 package com.example.youwatch.fragments;
 
+import static com.example.youwatch.Location.REQUEST_LOCATION;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.youwatch.Location;
 import com.example.youwatch.LoginActivity;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
@@ -47,7 +50,6 @@ public class timelineFragment extends Fragment {
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
-
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
             }
@@ -63,5 +65,15 @@ public class timelineFragment extends Fragment {
         rvTimeline.setAdapter(adapter);
         rvTimeline.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_LOCATION:
+                Location.saveCurrentUserLocation(getActivity(), getContext());
+                break;
+        }
     }
 }

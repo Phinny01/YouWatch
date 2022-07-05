@@ -10,7 +10,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.29393115942028986" />
-        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.24921135646687698" />
+        <entry key="app/src/main/res/layout/fade_in.xml" value="0.2171875" />
+        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.2638823485726794" />
         <entry key="app/src/main/res/layout/fragment_fragement.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_timeline.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.25901639344262295" />
