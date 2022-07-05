@@ -30,7 +30,7 @@ public class SignUp extends AppCompatActivity {
         btnSubmit = findViewById(R.id.signup);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 ParseUser user = new ParseUser();
                 String user_name = username.getText().toString();
                 String Password = password.getText().toString();
@@ -41,8 +41,8 @@ public class SignUp extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Activity activity = new Activity();
-                            LoginActivity.setUserLocation(activity, v.getContext());
-                            LoginActivity.goMainActivity(v.getContext());
+                            LoginActivity.setUserLocation(activity, view.getContext());
+                            LoginActivity.goMainActivity(view.getContext());
                         } else {
                             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
                         }
