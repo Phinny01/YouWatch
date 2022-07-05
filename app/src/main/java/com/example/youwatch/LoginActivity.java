@@ -1,7 +1,5 @@
 package com.example.youwatch;
 
-import static com.example.youwatch.Location.saveCurrentUserLocation;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -54,12 +52,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password, Context context) {
+        Activity activity = new Activity();
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
                     Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 } else {
+                    setUserLocation(activity, context);
                     goMainActivity(context);
                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
@@ -68,8 +68,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static void goMainActivity(Context context) {
-        Activity activity = new Activity();
-        saveCurrentUserLocation(activity, context);
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
@@ -77,5 +75,9 @@ public class LoginActivity extends AppCompatActivity {
     private void goSignUp() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
+    }
+
+    public static void setUserLocation(Activity activity, Context context) {
+        Location.saveCurrentUserLocation(activity, context);
     }
 }

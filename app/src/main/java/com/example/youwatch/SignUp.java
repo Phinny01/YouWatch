@@ -2,6 +2,7 @@ package com.example.youwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
+                            Activity activity = new Activity();
+                            LoginActivity.setUserLocation(activity, v.getContext());
                             LoginActivity.goMainActivity(v.getContext());
                         } else {
                             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
