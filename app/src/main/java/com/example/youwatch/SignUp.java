@@ -41,7 +41,7 @@ public class SignUp extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Activity activity = new Activity();
-                            LoginActivity.setUserLocation(activity, view.getContext());
+                            Location.saveCurrentUserLocation(activity, view.getContext());
                             LoginActivity.goMainActivity(view.getContext());
                         } else {
                             Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();

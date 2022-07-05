@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 } else {
-                    setUserLocation(activity, context);
+                    Location.saveCurrentUserLocation(activity, context);
                     goMainActivity(context);
                     Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
@@ -75,9 +76,5 @@ public class LoginActivity extends AppCompatActivity {
     private void goSignUp() {
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
-    }
-
-    public static void setUserLocation(Activity activity, Context context) {
-        Location.saveCurrentUserLocation(activity, context);
     }
 }
