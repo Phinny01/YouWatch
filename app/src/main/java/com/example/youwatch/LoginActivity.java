@@ -1,18 +1,22 @@
 package com.example.youwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -46,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password, Context context) {
-        Activity activity = new Activity();
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {

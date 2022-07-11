@@ -1,5 +1,6 @@
 package com.example.youwatch.fragments;
 
+
 import static com.example.youwatch.locationManager.REQUEST_LOCATION;
 
 import android.os.Bundle;
@@ -14,9 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.youwatch.locationManager;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
+import com.example.youwatch.locationManager;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class timelineFragment extends Fragment {
     protected PostAdapter adapter;
-    protected  List<Post> allPosts;
+    protected List<Post> allPosts;
     RecyclerView rvTimeline;
     ParseUser currentUser = ParseUser.getCurrentUser();
     private static final int LIMIT = 20;
