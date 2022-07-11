@@ -29,6 +29,7 @@ import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -43,10 +44,7 @@ public class ComposeFragment extends Fragment {
     VideoView videoView;
     File videoFile;
     private static final String TAG = "composeFragment";
-    private static final String message_1 = "caption cannot be empty";
-    private static final String message_2 = "There is no video";
-    private static final String message_3 = "Failed to create directory";
-    private static final String videoFileName = "video.mp4";
+    private static final String VIDEO_FILE_NAME = "video.mp4";
     private static final int VIDEO_CAPTURE_ACTIVITY_REQUEST_CODE = 101;
 
     public ComposeFragment() {
@@ -76,11 +74,11 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 String caption = etCaption.getText().toString();
                 if (caption.isEmpty()) {
-                    Toast.makeText(getContext(), message_1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.emptyCaption, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (videoFile == null || videoView == null) {
-                    Toast.makeText(getContext(), message_2, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.noVideo, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
@@ -91,7 +89,7 @@ public class ComposeFragment extends Fragment {
 
     private void launchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        videoFile = getVideoFileUri(videoFileName);
+        videoFile = getVideoFileUri(VIDEO_FILE_NAME);
         Uri fileProvider = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()), BuildConfig.APPLICATION_ID + ".provider", videoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
@@ -102,22 +100,24 @@ public class ComposeFragment extends Fragment {
     private File getVideoFileUri(String fileName) {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES), TAG);
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Toast.makeText(getContext(), message_3, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.noDirectory, Toast.LENGTH_SHORT).show();
         }
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
     private void savePost(String caption, ParseUser currentUser, File videoFile) {
         Post post = new Post();
+        ParseGeoPoint location = currentUser.getParseGeoPoint(Post.KEY_LOCATION);
         post.setDescription(caption);
         post.setVideo(new ParseFile(videoFile));
         post.setUser(currentUser);
         post.getCreatedAt();
+        post.setLocation(location);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
-                    Toast.makeText(getContext(), message_1, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.emptyCaption, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 etCaption.setText("");

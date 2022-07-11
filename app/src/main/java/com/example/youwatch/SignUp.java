@@ -3,9 +3,7 @@ package com.example.youwatch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +17,6 @@ public class SignUp extends AppCompatActivity {
     EditText username;
     EditText password;
     Button btnSubmit;
-    public static final String message = "Something went wrong";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +38,10 @@ public class SignUp extends AppCompatActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             Activity activity = new Activity();
-                            Location.saveCurrentUserLocation(activity, view.getContext());
+                            locationManager.saveCurrentUserLocation(view.getContext());
                             LoginActivity.goMainActivity(view.getContext());
                         } else {
-                            Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUp.this, R.string.signupIssue, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

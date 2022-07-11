@@ -13,4 +13,12 @@
     <string name="Video">Record a video</string>
     <string name="Caption">Write a caption</string>
     <string name="Post">post</string>
+    <string name="search_hint">hint</string>
+    <string name="NoUser">Login</string>
+    <string name="signupIssue">Something went wrong</string>
+    <string name="loginSuccess">Success</string>
+    <string name="loginIssue">Issue with Login</string>
+    <string name="emptyCaption">Caption cannot be empty</string>
+    <string name="noVideo">There is no video</string>
+    <string name="noDirectory">There is no directory</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.youwatch.fragments;
 
-import static com.example.youwatch.Location.REQUEST_LOCATION;
+import static com.example.youwatch.locationManager.REQUEST_LOCATION;
 
 import android.os.Bundle;
 
@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.youwatch.Location;
+import com.example.youwatch.locationManager;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.parse.FindCallback;
@@ -28,9 +28,10 @@ import java.util.List;
 
 public class timelineFragment extends Fragment {
     protected PostAdapter adapter;
-    protected List<Post> allPosts;
+    protected  List<Post> allPosts;
     RecyclerView rvTimeline;
     ParseUser currentUser = ParseUser.getCurrentUser();
+    private static final int LIMIT = 20;
 
     public timelineFragment() {
     }
@@ -44,7 +45,7 @@ public class timelineFragment extends Fragment {
     private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(LIMIT);
         query.addDescendingOrder(Post.CREATED_AT);
         query.whereNear(Post.KEY_LOCATION, currentUser.getParseGeoPoint(Post.KEY_LOCATION));
         query.findInBackground(new FindCallback<Post>() {
@@ -72,7 +73,7 @@ public class timelineFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_LOCATION:
-                Location.saveCurrentUserLocation(getActivity(), getContext());
+                locationManager.saveCurrentUserLocation(getContext());
                 break;
         }
     }
