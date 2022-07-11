@@ -10,6 +10,7 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
@@ -39,7 +40,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         list = view.findViewById(R.id.listview);
-
         super.onCreate(savedInstanceState);
         ParseQuery<Post> postParseQuery = new ParseQuery<Post>(Post.class);
         postParseQuery.include(Post.KEY_USER);

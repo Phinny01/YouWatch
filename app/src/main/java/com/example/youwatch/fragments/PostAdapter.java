@@ -28,12 +28,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> posts;
     static ParseFile video;
 
-    private void clear() {
+    public void clear() {
         posts.clear();
         notifyDataSetChanged();
     }
 
-    private void addAll(List<Post> list) {
+    public void addAll(List<Post> list) {
         posts.addAll(list);
         notifyDataSetChanged();
     }
