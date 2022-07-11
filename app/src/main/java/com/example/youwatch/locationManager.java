@@ -16,9 +16,9 @@ import com.parse.ParseUser;
 
 public class locationManager {
     public static final int REQUEST_LOCATION = 1;
-    static android.location.LocationManager locationManager;
 
     public static void saveCurrentUserLocation(Context context) {
+        android.location.LocationManager locationManager;
         locationManager = (android.location.LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission((Activity) context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
