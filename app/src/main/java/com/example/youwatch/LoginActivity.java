@@ -24,9 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button loginButton;
     private Button btCreate;
-    private static final String message = "Success";
-    private static final String errorMessage = "Issue with Login";
-    private static final String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +55,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
-                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.loginIssue, Toast.LENGTH_SHORT).show();
                 } else {
-                    Location.saveCurrentUserLocation(activity, context);
+                    Location.saveCurrentUserLocation(context);
                     goMainActivity(context);
-                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,R.string.loginSuccess , Toast.LENGTH_SHORT).show();
                 }
             }
         });

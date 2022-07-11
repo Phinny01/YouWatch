@@ -24,9 +24,9 @@ import com.parse.ParseFile;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-    private Context context;
+    private static Context context;
     private List<Post> posts;
-    ParseFile video;
+    static ParseFile video;
 
     private void clear() {
         posts.clear();
@@ -61,12 +61,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return posts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
         private TextView tvUser;
         private VideoView vvPost;
         private TextView tvDescription;
 
-        private ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             vvPost = itemView.findViewById(R.id.vvPost);
@@ -79,7 +79,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             placeholder.setVisibility(View.GONE);
         }
 
-        private void bind(Post post) {
+        public void bind(Post post) {
             tvDescription.setText(post.getDescription());
             tvUser.setText(post.getUser().getUsername());
             video = post.getVideo();
