@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".SignUp">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="208dp"
+        android:layout_height="179dp"
+        android:src="@drawable/profile_pic"
+        app:layout_constraintBottom_toTopOf="@+id/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.443"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
+
     <EditText
         android:id="@+id/user"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <external-files-path
-        name="Videos"
-        path="Movies" />
+        name="Media"
+        path="Media"/>
+    <external-path name="all_dirs" path="."/>
 </paths>

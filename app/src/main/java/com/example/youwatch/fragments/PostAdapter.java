@@ -3,6 +3,7 @@ package com.example.youwatch.fragments;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -27,6 +30,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private static Context context;
     private List<Post> posts;
     static ParseFile video;
+    static ParseFile image;
+    public static final String PROFILE_IMAGE = "ProfilePicture";
 
     public void clear() {
         posts.clear();
@@ -65,6 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView tvUser;
         private VideoView vvPost;
         private TextView tvDescription;
+        private ImageView ivProfile;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +78,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             vvPost = itemView.findViewById(R.id.vvPost);
             tvUser = itemView.findViewById(R.id.tvUser);
             itemView.setOnTouchListener(this);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
         }
 
         private void onPrepared() {
@@ -83,7 +90,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvDescription.setText(post.getDescription());
             tvUser.setText(post.getUser().getUsername());
             video = post.getVideo();
+            image = post.getUser().getParseFile(PROFILE_IMAGE);
             Uri VideoUri = Uri.parse(video.getUrl());
+            if (image != null) {
+                Picasso.with(context).load(image.getUrl()).into(ivProfile);
+            }
             if (video != null) {
                 vvPost.setVideoURI(VideoUri);
                 MediaController mediaController = new MediaController(context);
