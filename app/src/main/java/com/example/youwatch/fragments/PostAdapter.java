@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
+import com.example.youwatch.RelevanceAlgorithm;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -82,6 +83,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUser = itemView.findViewById(R.id.tvUser);
             itemView.setOnTouchListener(this);
             ivProfile = itemView.findViewById(R.id.ivProfile);
+            vvPost.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    Post post = posts.get(getAdapterPosition());
+                    RelevanceAlgorithm.Views(post);
+                    post.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                        }
+                    });
+                }
+            });
         }
 
         private void onPrepared() {
