@@ -1,6 +1,7 @@
 package com.example.youwatch.fragments;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,6 @@ public class SearchFeedAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public Post getItem(int position) {
-
         return arraylist.get(position);
     }
 
@@ -57,7 +57,6 @@ public class SearchFeedAdapter extends BaseAdapter implements ListAdapter {
 
     public void filter(String text) {
         text.toLowerCase(Locale.ROOT);
-        postsList.clear();
         if (text.length() == 0) {
             for (Post post : arraylist) {
                 postsList.add(post);

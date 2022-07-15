@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.youwatch.fragments.ComposeFragment;
+import com.example.youwatch.fragments.ProfileFragment;
 import com.example.youwatch.fragments.SearchFragment;
 import com.example.youwatch.fragments.timelineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.Compose:
                         fragment = new ComposeFragment();
+                        break;
+                    case R.id.Profile:
+                        fragment = new ProfileFragment();
                         break;
                     case R.id.Search:
                     default:

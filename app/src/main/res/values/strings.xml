@@ -23,4 +23,5 @@
     <string name="noDirectory">There is no directory</string>
     <string name="noProfilePicture">There is no profile picture</string>
     <string name="noPicture">Picture wasn\'t taken!</string>
+    <string name="textview">Username</string>
 </resources>

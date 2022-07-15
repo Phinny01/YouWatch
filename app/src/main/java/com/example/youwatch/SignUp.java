@@ -71,6 +71,7 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
+                            saveProfilePhoto(user, photoFile);
                             locationManager.saveCurrentUserLocation(view.getContext());
                             LoginActivity.goMainActivity(view.getContext());
                         } else {
@@ -91,8 +92,6 @@ public class SignUp extends AppCompatActivity {
         if (intent.resolveActivity(this.getPackageManager()) != null) {
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
-        saveProfilePhoto(user, photoFile);
-
     }
 
     private File getPhotoFileUri(String fileName) {
@@ -105,7 +104,7 @@ public class SignUp extends AppCompatActivity {
     private void saveProfilePhoto(ParseUser currentUser, File photoFile) {
         currentUser.put(PROFILE_IMAGE, new ParseFile(photoFile));
         currentUser.saveInBackground();
-        }
+    }
 
 
     @Override

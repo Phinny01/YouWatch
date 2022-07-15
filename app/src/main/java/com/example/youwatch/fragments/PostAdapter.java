@@ -1,5 +1,6 @@
 package com.example.youwatch.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,15 +21,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private static Context context;
-    private List<Post> posts;
+    private static List<Post> posts;
     static ParseFile video;
     static ParseFile image;
     public static final String PROFILE_IMAGE = "ProfilePicture";
@@ -97,7 +100,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
             if (video != null) {
                 vvPost.setVideoURI(VideoUri);
-                MediaController mediaController = new MediaController(context);
+                MediaController mediaController = new MediaController(itemView.getContext());
                 mediaController.setAnchorView(vvPost);
                 mediaController.setMediaPlayer(vvPost);
                 vvPost.setMediaController(mediaController);

@@ -14,6 +14,7 @@ public class Post extends ParseObject {
     public static final String CREATED_AT = "createdAt";
     public static final String KEY_CATEGORY = "Category";
     public static final String KEY_LOCATION = "Location";
+    public static final String KEY_VIEWS = "Views";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -53,5 +54,13 @@ public class Post extends ParseObject {
 
     public void setLocation(ParseGeoPoint location) {
         put(KEY_LOCATION, location);
+    }
+
+    public void setViews(int views) {
+        put(KEY_VIEWS, views);
+    }
+
+    public int getViews() {
+        return getInt(KEY_VIEWS);
     }
 }
