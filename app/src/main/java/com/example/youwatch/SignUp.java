@@ -67,13 +67,13 @@ public class SignUp extends AppCompatActivity {
                 String Password = password.getText().toString();
                 user.setUsername(user_name);
                 user.setPassword(Password);
+
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
                             saveProfilePhoto(user, photoFile);
                             locationManager.saveCurrentUserLocation(view.getContext());
-                            LoginActivity.goMainActivity(view.getContext());
                         } else {
                             Toast.makeText(SignUp.this, R.string.signupIssue, Toast.LENGTH_SHORT).show();
                         }
@@ -84,7 +84,6 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void launchCamera() {
-        ParseUser user = ParseUser.getCurrentUser();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFileUri(photoFileName);
         Uri fileProvider = FileProvider.getUriForFile(Objects.requireNonNull(getApplicationContext()), BuildConfig.APPLICATION_ID + ".provider", photoFile);
@@ -105,7 +104,6 @@ public class SignUp extends AppCompatActivity {
         currentUser.put(PROFILE_IMAGE, new ParseFile(photoFile));
         currentUser.saveInBackground();
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

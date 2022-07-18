@@ -24,4 +24,5 @@
     <string name="noProfilePicture">There is no profile picture</string>
     <string name="noPicture">Picture wasn\'t taken!</string>
     <string name="textview">Username</string>
+    <string name="wait">Wait</string>
 </resources>

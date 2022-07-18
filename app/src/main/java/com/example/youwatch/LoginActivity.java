@@ -57,8 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, R.string.loginIssue, Toast.LENGTH_SHORT).show();
                 } else {
                     locationManager.saveCurrentUserLocation(context);
-                    goMainActivity(context);
-                    Toast.makeText(LoginActivity.this,R.string.loginSuccess , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.loginSuccess, Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -32,7 +32,7 @@ import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private static Context context;
-    private static List<Post> posts;
+    public static List<Post> posts;
     static ParseFile video;
     static ParseFile image;
     public static final String PROFILE_IMAGE = "ProfilePicture";
@@ -108,6 +108,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             video = post.getVideo();
             image = post.getUser().getParseFile(PROFILE_IMAGE);
             Uri VideoUri = Uri.parse(video.getUrl());
+            double postRelevance = RelevanceAlgorithm.getRelevance(post);
+            post.setRelevance(postRelevance);
             if (image != null) {
                 Picasso.with(context).load(image.getUrl()).into(ivProfile);
             }

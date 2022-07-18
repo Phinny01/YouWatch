@@ -33,7 +33,6 @@ public class timelineFragment extends Fragment {
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     RecyclerView rvTimeline;
-    ParseUser currentUser = ParseUser.getCurrentUser();
     private static final int LIMIT = 20;
 
     public timelineFragment() {
@@ -49,8 +48,7 @@ public class timelineFragment extends Fragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(LIMIT);
-        query.addDescendingOrder(Post.CREATED_AT);
-        query.whereNear(Post.KEY_LOCATION, currentUser.getParseGeoPoint(Post.KEY_LOCATION));
+        query.addDescendingOrder(Post.KEY_RELEVANCE);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

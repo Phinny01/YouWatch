@@ -15,6 +15,7 @@ public class Post extends ParseObject {
     public static final String KEY_CATEGORY = "Category";
     public static final String KEY_LOCATION = "Location";
     public static final String KEY_VIEWS = "Views";
+    public static final String KEY_RELEVANCE = "Relevance";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -63,4 +64,9 @@ public class Post extends ParseObject {
     public int getViews() {
         return getInt(KEY_VIEWS);
     }
+
+    public void setRelevance(double relevance) {
+        put(KEY_RELEVANCE, relevance);
+    }
+
 }
