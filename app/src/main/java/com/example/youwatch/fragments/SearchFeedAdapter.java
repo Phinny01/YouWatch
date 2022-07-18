@@ -1,75 +1,107 @@
 package com.example.youwatch.fragments;
 
+import static com.example.youwatch.fragments.PostAdapter.PROFILE_IMAGE;
+import static com.example.youwatch.fragments.PostAdapter.image;
+
 import android.content.Context;
-import android.util.Log;
+import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.TextView;
+import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
+import com.example.youwatch.RelevanceAlgorithm;
+import com.parse.ParseFile;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class SearchFeedAdapter extends BaseAdapter implements ListAdapter {
-    LayoutInflater inflater;
-    PostAdapter.ViewHolder holder;
-    private ArrayList<Post> arraylist;
-    private List<Post> postsList;
+public class SearchFeedAdapter extends RecyclerView.Adapter<SearchFeedAdapter.SearchViewHolder> implements View.OnTouchListener {
+    private Context context;
+    private List<Post> postList;
 
-    public SearchFeedAdapter(Context context, List<Post> postsList) {
-        this.postsList = SearchFragment.postsList;
-        inflater = LayoutInflater.from(context);
-        this.arraylist = new ArrayList<>();
-        this.arraylist.addAll(postsList);
+    public SearchFeedAdapter(Context context, List<Post> postList) {
+        this.context = context;
+        this.postList = postList;
+    }
+
+    @NonNull
+    @Override
+    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
+        return new SearchViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return postsList.size();
+    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+        Post post = postList.get(position);
+        holder.bind(post);
     }
 
     @Override
-    public Post getItem(int position) {
-        return arraylist.get(position);
+    public int getItemCount() {
+        return postList.size();
     }
 
     @Override
-    public long getItemId(int position) {
-        return Long.parseLong(arraylist.get(position).getObjectId(), 36);
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
     }
 
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        if (view == null) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
-            holder = new PostAdapter.ViewHolder(view);
-            view.setTag(holder);
-        } else {
-            holder = (PostAdapter.ViewHolder) view.getTag();
+    public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
+        ImageView profilePicture;
+        VideoView video;
+        TextView userName;
+        TextView caption;
+        ParseFile Video;
+
+        public SearchViewHolder(@NonNull View itemView) {
+            super(itemView);
+            profilePicture = itemView.findViewById(R.id.ivProfile);
+            video = itemView.findViewById(R.id.vvPost);
+            userName = itemView.findViewById(R.id.tvUser);
+            caption = itemView.findViewById(R.id.tvDescription);
+            itemView.setOnTouchListener(this);
         }
-        return view;
-    }
 
-    public void filter(String text) {
-        text.toLowerCase(Locale.ROOT);
-        if (text.length() == 0) {
-            for (Post post : arraylist) {
-                postsList.add(post);
-                holder.bind(post);
+        private void onPrepared() {
+            View placeholder = itemView.findViewById(R.id.placeholder);
+            placeholder.setVisibility(View.GONE);
+        }
+
+        public void bind(Post post) {
+            caption.setText(post.getDescription());
+            userName.setText(post.getUser().getUsername());
+            Video = post.getVideo();
+            image = post.getUser().getParseFile(PROFILE_IMAGE);
+            Uri VideoUri = Uri.parse(Video.getUrl());
+            if (image != null) {
+                Picasso.with(context).load(image.getUrl()).into(profilePicture);
             }
-        } else {
-            for (Post post : arraylist) {
-                if (post.getDescription().toLowerCase(Locale.ROOT).contains(text)) {
-                    postsList.add(post);
-                    holder.bind(post);
-                }
+            if (video != null) {
+                video.setVideoURI(VideoUri);
+                MediaController mediaController = new MediaController(itemView.getContext());
+                mediaController.setAnchorView(video);
+                mediaController.setMediaPlayer(video);
+                video.setMediaController(mediaController);
+            } else {
+                video.setVideoURI(Uri.parse(""));
             }
         }
-        notifyDataSetChanged();
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            onPrepared();
+            return true;
+        }
     }
 }

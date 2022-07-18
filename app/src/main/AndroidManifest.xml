@@ -63,6 +63,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider" />
         </provider>
+
+        <provider
+            android:authorities="de.openminds.SampleRecentSuggestionsProvider"
+            android:name="com.example.MySuggestionProvider"
+            >
+        </provider>
     </application>
 
 </manifest>
