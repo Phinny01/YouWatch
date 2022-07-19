@@ -1,13 +1,10 @@
 package com.example.youwatch.fragments;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,13 +15,12 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.youwatch.Post;
+import com.example.youwatch.PostUserDetail;
 import com.example.youwatch.R;
 import com.example.youwatch.RelevanceAlgorithm;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
@@ -36,6 +32,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     static ParseFile video;
     static ParseFile image;
     public static final String PROFILE_IMAGE = "ProfilePicture";
+    private static final long DOUBLE_TIME = 500;
+    private static long lastClickTime = 0;
+    private static int clicks = 0;
 
     public void clear() {
         posts.clear();
@@ -70,7 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return posts.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvUser;
         private VideoView vvPost;
         private TextView tvDescription;
@@ -81,7 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvDescription = itemView.findViewById(R.id.tvDescription);
             vvPost = itemView.findViewById(R.id.vvPost);
             tvUser = itemView.findViewById(R.id.tvUser);
-            itemView.setOnTouchListener(this);
+            itemView.setOnClickListener(this);
             ivProfile = itemView.findViewById(R.id.ivProfile);
             vvPost.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -124,10 +123,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         }
 
+        private void onDoubleClick(View v) {
+            Intent intent = new Intent(context, PostUserDetail.class);
+            context.startActivity(intent);
+        }
+
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
+        public void onClick(View v) {
+            long currentTimeMillis = System.currentTimeMillis();
+            clicks++;
+            if (currentTimeMillis - lastClickTime < DOUBLE_TIME && clicks >= 2) {
+                onDoubleClick(v);
+                clicks = 0;
+            }
+            lastClickTime = currentTimeMillis;
             onPrepared();
-            return true;
         }
     }
 }
