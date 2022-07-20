@@ -5,4 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PostUserDetail">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivImage"
+        android:layout_width="210dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#1976D2"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+    <Switch
+        android:id="@+id/follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="@string/follow"
+        app:layout_constraintEnd_toStartOf="@+id/tvUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProfile"
+        android:layout_width="414dp"
+        android:layout_height="421dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/follow" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

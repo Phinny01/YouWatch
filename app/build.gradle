@@ -42,4 +42,8 @@ dependencies {
     implementation "com.github.parse-community.Parse-SDK-Android:parse:4.0.0"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.picasso:picasso:2.6.0-SNAPSHOT'
+//    implementation'com.github.parse-community:ParseFacebookUtils-Android:latest.version.here'
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation 'org.parceler:parceler-api:1.1.12'
+    annotationProcessor 'org.parceler:parceler:1.1.12'
 }

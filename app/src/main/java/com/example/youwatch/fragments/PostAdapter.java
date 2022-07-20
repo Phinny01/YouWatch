@@ -24,6 +24,8 @@ import com.parse.ParseFile;
 import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -124,8 +126,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
 
         private void onDoubleClick(View v) {
-            Intent intent = new Intent(context, PostUserDetail.class);
-            context.startActivity(intent);
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+                Intent intent = new Intent(context, PostUserDetail.class);
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                context.startActivity(intent);
+            }
         }
 
         @Override
