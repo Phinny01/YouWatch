@@ -1,5 +1,8 @@
 package com.example.youwatch.fragments;
 
+import static com.example.youwatch.Post.KEY_DESCRIPTION;
+import static com.parse.ParseObject.pinAll;
+
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,29 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.MySuggestionProvider;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
-import com.google.android.material.button.MaterialButton;
+import com.example.youwatch.SearchRelevance;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class SearchFragment extends Fragment {
@@ -75,14 +72,19 @@ public class SearchFragment extends Fragment {
     }
 
     private void queryPosts(String toSearch) {
-        ParseQuery<Post> postParseQuery = new ParseQuery<Post>(Post.class);
-        postParseQuery.whereContains(Post.KEY_DESCRIPTION, toSearch);
+        ParseQuery<Post> postParseQuery = new ParseQuery<>(Post.class);
+        postParseQuery.whereContains(KEY_DESCRIPTION, toSearch);
         postParseQuery.include(Post.KEY_USER);
         postParseQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> objects, ParseException e) {
                 postsList.clear();
-                postsList.addAll(objects);
+                if (objects.size() > 1) {
+                    SearchRelevance.getOccurrence(objects, toSearch, postsList);
+                }
+                else{
+                    postsList.addAll(objects);
+                }
                 adapter.notifyDataSetChanged();
             }
         });
