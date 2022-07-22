@@ -25,4 +25,10 @@
     <string name="noPicture">Picture wasn\'t taken!</string>
     <string name="textview">Username</string>
     <string name="wait">Wait</string>
+    <string name="facebook_app_id">1217746085745196</string>
+    <string name="fb_login_protocol_scheme">fb1217746085745196</string>
+    <string name="facebook_client_token">a23299839d7bcabfe1f66bebfc9855a4</string>
+    <string name="follow">Follow</string>
+    <string name="following">Already following</string>
+    <string name="SearchForVideo">Search for a video</string>
 </resources>

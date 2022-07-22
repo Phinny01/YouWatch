@@ -1,6 +1,7 @@
 package com.example.youwatch.fragments;
 
 import static com.example.youwatch.Post.KEY_DESCRIPTION;
+import static com.example.youwatch.fragments.timelineFragment.captions;
 import static com.parse.ParseObject.pinAll;
 
 import android.app.SearchManager;
@@ -10,6 +11,8 @@ import android.provider.SearchRecentSuggestions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,6 +31,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -35,7 +40,7 @@ public class SearchFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter = null;
     Button searchButton;
-    EditText searchEditText;
+    AutoCompleteTextView searchEditText;
     public String toSearch;
     public static List<Post> postsList = new ArrayList<>();
 
@@ -55,6 +60,7 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         searchEditText = view.findViewById(R.id.etSearch);
+        searchEditText.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, captions));
         searchButton = view.findViewById(R.id.btnSearch);
         Intent intent = requireActivity().getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {

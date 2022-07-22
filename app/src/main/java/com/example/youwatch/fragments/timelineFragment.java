@@ -1,21 +1,21 @@
 package com.example.youwatch.fragments;
 
 
+import static com.example.youwatch.SearchRelevance.getCaptionArray;
 import static com.example.youwatch.locationManager.REQUEST_LOCATION;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
@@ -23,9 +23,9 @@ import com.example.youwatch.locationManager;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -34,6 +34,7 @@ public class timelineFragment extends Fragment {
     protected List<Post> allPosts;
     RecyclerView rvTimeline;
     private static final int LIMIT = 20;
+    public static List<String> captions;
 
     public timelineFragment() {
     }
@@ -53,6 +54,7 @@ public class timelineFragment extends Fragment {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 allPosts.addAll(posts);
+                captions =  getCaptionArray(posts);
                 adapter.notifyDataSetChanged();
             }
         });

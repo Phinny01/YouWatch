@@ -1,5 +1,9 @@
 package com.example.youwatch;
 
+import android.util.Log;
+
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -7,7 +11,6 @@ import java.util.Locale;
 public class SearchRelevance {
 
     public static void getOccurrence(List<Post> objects, String toString, List<Post> postList) {
-
         int[] countArray = new int[objects.size()];
         Post[] posts = new Post[objects.size()];
         Post[] posts_2 = new Post[objects.size()];
@@ -24,7 +27,7 @@ public class SearchRelevance {
         postList.addAll(Arrays.asList(posts_2));
     }
 
-    static void merge(int[] arr, int left, int middle, int right, Post[] posts) {
+    private static void merge(int[] arr, int left, int middle, int right, Post[] posts) {
         int sub_1 = middle - left + 1;
         int sub_2 = right - middle;
         int[] leftArray = new int[sub_1];
@@ -67,7 +70,7 @@ public class SearchRelevance {
         }
     }
 
-    static void sort(int[] arr, int left, int right, Post[] posts) {
+    private static void sort(int[] arr, int left, int right, Post[] posts) {
         if (left < right) {
             int middle = left + (right - left) / 2;
             sort(arr, left, middle, posts);
@@ -76,11 +79,21 @@ public class SearchRelevance {
         }
     }
 
-    static void reverse(Post[] posts, List<Post> objects, Post[] posts_2) {
+    private static void reverse(Post[] posts, List<Post> objects, Post[] posts_2) {
         int i = 0;
         for (int j = objects.size() - 1; j >= 0; j--) {
             posts_2[i] = (posts[j]);
             i++;
         }
+    }
+
+    public static List<String> getCaptionArray(List<Post> posts) {
+        List<String> captions = Arrays.asList(new String[posts.size()]);
+        int i = 0;
+        for (Post post : posts) {
+            captions.set(i, post.getDescription());
+            i++;
+        }
+        return captions;
     }
 }
