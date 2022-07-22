@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.MySuggestionProvider;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
+import com.example.youwatch.SearchHistory;
 import com.example.youwatch.SearchRelevance;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -62,12 +63,7 @@ public class SearchFragment extends Fragment {
         searchEditText = view.findViewById(R.id.etSearch);
         searchEditText.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, captions));
         searchButton = view.findViewById(R.id.btnSearch);
-        Intent intent = requireActivity().getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(getContext(), MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
-            suggestions.saveRecentQuery(query, null);
-        }
+        searchSuggestionQuery();
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +89,19 @@ public class SearchFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
+        });
+    }
+    private void searchSuggestionQuery(){
+        ParseQuery<Post> query = new ParseQuery<Post>(SearchHistory.KEY_POSTS);
+        query.include(SearchHistory.KEY_POSTS);
+        query.setLimit(1);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> objects, ParseException e) {
+                postsList.addAll(objects);
+                adapter.notifyDataSetChanged();
+            }
+
         });
     }
 }

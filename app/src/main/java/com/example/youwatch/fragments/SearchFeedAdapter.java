@@ -2,8 +2,10 @@ package com.example.youwatch.fragments;
 
 import static com.example.youwatch.fragments.PostAdapter.PROFILE_IMAGE;
 import static com.example.youwatch.fragments.PostAdapter.image;
+import static com.example.youwatch.fragments.PostAdapter.posts;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,18 +22,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.example.youwatch.RelevanceAlgorithm;
+import com.example.youwatch.SearchHistory;
 import com.parse.ParseFile;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchFeedAdapter extends RecyclerView.Adapter<SearchFeedAdapter.SearchViewHolder> implements View.OnTouchListener {
     private Context context;
-    private List<Post> postList;
-
+    private static List<Post> postList;
     public SearchFeedAdapter(Context context, List<Post> postList) {
         this.context = context;
-        this.postList = postList;
+        SearchFeedAdapter.postList = postList;
     }
 
     @NonNull
@@ -71,6 +75,16 @@ public class SearchFeedAdapter extends RecyclerView.Adapter<SearchFeedAdapter.Se
             userName = itemView.findViewById(R.id.tvUser);
             caption = itemView.findViewById(R.id.tvDescription);
             itemView.setOnTouchListener(this);
+            video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    int position = getAdapterPosition();
+                    Post post = posts.get(position);
+                    SearchHistory searchHistory = new SearchHistory();
+                    searchHistory.setPosts(post);
+                    searchHistory.saveInBackground();
+                }
+            });
         }
 
         private void onPrepared() {

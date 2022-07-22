@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <queries>
         <intent>
             <action android:name="android.media.action.VIDEO_CAPTURE" />
@@ -73,8 +74,9 @@
                 android:resource="@xml/file_provider" />
         </provider>
         <provider
-            android:name="com.example.MySuggestionProvider"
-            android:authorities="de.openminds.SampleRecentSuggestionsProvider" />
+            android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider1217746085745196"
+        android:exported="true" />
     </application>
 
 </manifest>
