@@ -21,18 +21,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
-import com.example.youwatch.RelevanceAlgorithm;
 import com.example.youwatch.SearchHistory;
 import com.parse.ParseFile;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchFeedAdapter extends RecyclerView.Adapter<SearchFeedAdapter.SearchViewHolder> implements View.OnTouchListener {
     private Context context;
     private static List<Post> postList;
+
     public SearchFeedAdapter(Context context, List<Post> postList) {
         this.context = context;
         SearchFeedAdapter.postList = postList;

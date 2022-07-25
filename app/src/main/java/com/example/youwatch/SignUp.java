@@ -1,16 +1,8 @@
 package com.example.youwatch;
 
 import static com.example.youwatch.R.string.noPicture;
-import static com.example.youwatch.R.string.noProfilePicture;
 import static com.example.youwatch.fragments.PostAdapter.PROFILE_IMAGE;
-import static com.parse.Parse.getApplicationContext;
-import static java.security.AccessController.getContext;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,17 +10,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.File;

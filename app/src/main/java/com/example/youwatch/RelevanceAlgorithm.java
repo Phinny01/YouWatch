@@ -2,9 +2,6 @@ package com.example.youwatch;
 
 import static com.example.youwatch.Post.KEY_LOCATION;
 
-import android.location.Location;
-import android.util.Log;
-
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 

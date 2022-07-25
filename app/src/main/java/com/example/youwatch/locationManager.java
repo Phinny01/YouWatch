@@ -1,18 +1,16 @@
 package com.example.youwatch;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
