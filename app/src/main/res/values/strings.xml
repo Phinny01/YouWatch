@@ -31,4 +31,7 @@
     <string name="follow">Follow</string>
     <string name="following">Already following</string>
     <string name="SearchForVideo">Search for a video</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="Unfollowed">Unfollowed</string>
+    <string name="Followed">Just followed</string>
 </resources>

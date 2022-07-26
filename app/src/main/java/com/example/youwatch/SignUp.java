@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.io.File;
@@ -68,6 +69,17 @@ public class SignUp extends AppCompatActivity {
                         if (e == null) {
                             saveProfilePhoto(user, photoFile);
                             locationManager.saveCurrentUserLocation(view.getContext());
+                            Followers followers = new Followers();
+                            followers.setUser(ParseUser.getCurrentUser());
+                            followers.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        user.put(Followers.KEY_FOLLOWER, followers);
+                                        user.saveInBackground();
+                                    }
+                                }
+                            });
                         } else {
                             Toast.makeText(SignUp.this, R.string.signupIssue, Toast.LENGTH_SHORT).show();
                         }

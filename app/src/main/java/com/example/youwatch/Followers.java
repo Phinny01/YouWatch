@@ -17,12 +17,15 @@ public class Followers extends ParseObject {
         put(KEY_USER, user);
     }
 
-    public ParseUser getFollower() {
-        return getParseUser(KEY_FOLLOWER);
+    public String getFollowers() {
+        return getString(KEY_FOLLOWER);
     }
 
-    public void setFollower(ParseUser follower) {
-        put(KEY_FOLLOWER, follower);
+    public void setFollower(String follower, boolean status, Followers followers) {
+        if (status) {
+            put(KEY_FOLLOWER, followers.getFollowers() + " " + follower);
+        } else {
+            put(KEY_FOLLOWER, getFollowers().replace(follower, ""));
+        }
     }
 }
-

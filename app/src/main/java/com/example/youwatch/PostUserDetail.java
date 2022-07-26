@@ -4,9 +4,11 @@ import static com.example.youwatch.fragments.PostAdapter.PROFILE_IMAGE;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,9 +33,13 @@ public class PostUserDetail extends Activity {
     TextView username;
     ImageView profileImage;
     Post post;
+    private final boolean FOLLOWED = true;
+    private final boolean UNFOLLOWED = false;
+    String userFollowers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ParseUser currentUser = ParseUser.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_user_detail);
         rvProfile = findViewById(R.id.rvProfile);
@@ -43,7 +49,13 @@ public class PostUserDetail extends Activity {
         post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
         ParseUser user = post.getUser();
         username.setText(user.getUsername());
-        ParseFile image = post.getUser().getParseFile(PROFILE_IMAGE);
+        ParseFile image = user.getParseFile(PROFILE_IMAGE);
+        Followers follow_obj = (Followers) user.get(Followers.KEY_FOLLOWER);
+        try {
+            userFollowers = follow_obj.fetchIfNeeded().getString(Followers.KEY_FOLLOWER);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         allPosts = new ArrayList<>();
         adapter = new PostUserDetailAdapter(this, allPosts);
         rvProfile.setAdapter(adapter);
@@ -51,6 +63,27 @@ public class PostUserDetail extends Activity {
         if (image != null) {
             Picasso.with(this).load(image.getUrl()).into(profileImage);
         }
+        if (userFollowers.contains(currentUser.getObjectId())) {
+            follow.setChecked(true);
+        }
+        follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked && userFollowers.contains(currentUser.getObjectId())) {
+                    follow_obj.setFollower(userFollowers, UNFOLLOWED, follow_obj);
+                    follow_obj.saveInBackground();
+                    Toast.makeText(PostUserDetail.this, R.string.Unfollowed, Toast.LENGTH_SHORT).show();
+                } else if (isChecked) {
+                    follow_obj.setFollower(currentUser.getObjectId(), FOLLOWED, follow_obj);
+                    follow_obj.saveInBackground();
+                    Toast.makeText(PostUserDetail.this, R.string.Followed, Toast.LENGTH_SHORT).show();
+                } else {
+                    follow_obj.setFollower(userFollowers, UNFOLLOWED, follow_obj);
+                    follow_obj.saveInBackground();
+                    Toast.makeText(PostUserDetail.this, R.string.Unfollowed, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         queryPosts();
     }
 
