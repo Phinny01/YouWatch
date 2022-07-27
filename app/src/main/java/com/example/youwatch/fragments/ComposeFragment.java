@@ -7,15 +7,8 @@ import static com.parse.Parse.getApplicationContext;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +18,13 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+
 import com.example.youwatch.BuildConfig;
+import com.example.youwatch.NotificationManager;
 import com.example.youwatch.Post;
 import com.example.youwatch.R;
 import com.parse.ParseException;
@@ -84,6 +83,7 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(caption, currentUser, videoFile);
+                NotificationManager.user_query(getContext());
             }
         });
     }
