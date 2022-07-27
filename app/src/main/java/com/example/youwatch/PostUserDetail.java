@@ -1,5 +1,6 @@
 package com.example.youwatch;
 
+import static com.example.youwatch.NotificationManager.FollowPushNotification;
 import static com.example.youwatch.fragments.PostAdapter.PROFILE_IMAGE;
 
 import android.app.Activity;
@@ -77,6 +78,8 @@ public class PostUserDetail extends Activity {
                     follow_obj.setFollower(currentUser.getObjectId(), FOLLOWED, follow_obj);
                     follow_obj.saveInBackground();
                     Toast.makeText(PostUserDetail.this, R.string.Followed, Toast.LENGTH_SHORT).show();
+                    FollowPushNotification(user, currentUser, getApplicationContext(), post);
+
                 } else {
                     follow_obj.setFollower(userFollowers, UNFOLLOWED, follow_obj);
                     follow_obj.saveInBackground();

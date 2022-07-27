@@ -1,22 +1,18 @@
 package com.example.youwatch;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         loginButton = findViewById(R.id.button);
         btCreate = findViewById(R.id.btCreate);
+
         btCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password, v.getContext());
+
             }
         });
     }
@@ -66,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     public static void goMainActivity(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+        ParsePush.subscribeInBackground("" + ParseUser.getCurrentUser().getUsername());
     }
 
     private void goSignUp() {
