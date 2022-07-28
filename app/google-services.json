@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813303537337",
+    "project_id": "youwatch-354917",
+    "storage_bucket": "youwatch-354917.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813303537337:android:f77f4d3f324aac6cb64568",
+        "android_client_info": {
+          "package_name": "com.example.youwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813303537337-bd0pivaueip4pdp8mn6jrlqpcuqmgl4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPEcbavwtXvpN1zK-LLGEnFCz1NamWzyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813303537337-bd0pivaueip4pdp8mn6jrlqpcuqmgl4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

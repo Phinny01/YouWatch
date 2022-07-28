@@ -37,6 +37,7 @@ public class PostUserDetail extends Activity {
     private final boolean FOLLOWED = true;
     private final boolean UNFOLLOWED = false;
     String userFollowers;
+    ParseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,13 @@ public class PostUserDetail extends Activity {
         username = findViewById(R.id.tvUsername);
         profileImage = findViewById(R.id.ivImage);
         post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
-        ParseUser user = post.getUser();
+        if (user == null && post == null) {
+            user = ParseUser.getCurrentUser();
+        } else if (post == null) {
+            user = Parcels.unwrap(getIntent().getParcelableExtra(ParseUser.class.getSimpleName()));
+        } else {
+            user = post.getUser();
+        }
         username.setText(user.getUsername());
         ParseFile image = user.getParseFile(PROFILE_IMAGE);
         Followers follow_obj = (Followers) user.get(Followers.KEY_FOLLOWER);
@@ -56,7 +63,9 @@ public class PostUserDetail extends Activity {
             userFollowers = follow_obj.fetchIfNeeded().getString(Followers.KEY_FOLLOWER);
         } catch (ParseException e) {
             e.printStackTrace();
+            return;
         }
+
         allPosts = new ArrayList<>();
         adapter = new PostUserDetailAdapter(this, allPosts);
         rvProfile.setAdapter(adapter);
@@ -69,16 +78,16 @@ public class PostUserDetail extends Activity {
         }
         follow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked && userFollowers.contains(currentUser.getObjectId())) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isFollowed) {
+                if (!isFollowed && userFollowers.contains(currentUser.getObjectId())) {
                     follow_obj.setFollower(userFollowers, UNFOLLOWED, follow_obj);
                     follow_obj.saveInBackground();
                     Toast.makeText(PostUserDetail.this, R.string.Unfollowed, Toast.LENGTH_SHORT).show();
-                } else if (isChecked) {
+                } else if (isFollowed) {
                     follow_obj.setFollower(currentUser.getObjectId(), FOLLOWED, follow_obj);
                     follow_obj.saveInBackground();
                     Toast.makeText(PostUserDetail.this, R.string.Followed, Toast.LENGTH_SHORT).show();
-                    FollowPushNotification(user, currentUser, getApplicationContext(), post);
+                    FollowPushNotification(user, currentUser, getApplicationContext());
 
                 } else {
                     follow_obj.setFollower(userFollowers, UNFOLLOWED, follow_obj);
@@ -94,7 +103,7 @@ public class PostUserDetail extends Activity {
         ParseQuery<Post> profileQuery = ParseQuery.getQuery(Post.class);
         profileQuery.include(Post.KEY_USER);
         profileQuery.addDescendingOrder(Post.CREATED_AT);
-        profileQuery.whereEqualTo(Post.KEY_USER, post.getUser());
+        profileQuery.whereEqualTo(Post.KEY_USER, user);
         profileQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

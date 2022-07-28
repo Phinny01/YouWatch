@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
 }
-
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdk 32
 
@@ -36,14 +37,23 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'org.chromium.net:cronet-embedded:76.3809.111'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "com.github.parse-community.Parse-SDK-Android:parse:4.0.0"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.picasso:picasso:2.6.0-SNAPSHOT'
-//    implementation'com.github.parse-community:ParseFacebookUtils-Android:latest.version.here'
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation'com.github.parse-community:ParseFacebookUtils-Android:1.14.0'
+    implementation 'com.facebook.android:facebook-android-sdk:14.1.0'
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
+    implementation 'com.google.firebase:firebase-core:21.1.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.6'
+//    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+//    implementation 'com.google.firebase:firebase-analytics'
+//    implementation 'com.github.parse-community.parse-SDK.Android:fcm:1.21.0'
+    implementation "com.github.parse-community.Parse-SDK-Android:fcm:1.26.0"
+    implementation 'com.github.parse-community.Parse-SDK-Android:bolts-tasks:4.0.0'
+
 }

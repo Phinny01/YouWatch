@@ -7,7 +7,11 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.Receive"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <queries>
         <intent>
@@ -33,7 +37,28 @@
         tools:targetApi="31">
         <activity
             android:name=".PostUserDetail"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <meta-data
+            android:name="com.parse.push.gcm_sender_id"
+            android:value="id:813303537337"/>
+        <service
+            android:name="com.parse.fcm.ParseFirebaseMessagingService"
+            android:exported = "true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <receiver
+            android:name=".NotificationManager"
+            android:exported="false">
+            <intent-filter>
+                <action android:name = "com.parse.push.intent.RECEIVE"/>
+                <action android:name = "com.parse.push.intent.OPEN"/>
+                <action android:name = "com.parse.push.intent.DELETE"/>
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -73,10 +98,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider" />
         </provider>
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-        android:authorities="com.facebook.app.FacebookContentProvider1217746085745196"
-        android:exported="true" />
     </application>
 
 </manifest>

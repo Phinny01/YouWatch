@@ -46,6 +46,7 @@ public class ComposeFragment extends Fragment {
     private static final String TAG = "composeFragment";
     private static final String VIDEO_FILE_NAME = "video.mp4";
     private static final int VIDEO_CAPTURE_ACTIVITY_REQUEST_CODE = 101;
+    public static Post notify_post;
 
     public ComposeFragment() {
     }
@@ -114,6 +115,7 @@ public class ComposeFragment extends Fragment {
         post.setUser(currentUser);
         post.getCreatedAt();
         post.setLocation(location);
+        notify_post = post;
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -121,9 +123,11 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), R.string.emptyCaption, Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 etCaption.setText("");
                 videoView.setVideoURI(Uri.parse(""));
             }
+
         });
     }
 
