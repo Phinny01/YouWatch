@@ -72,7 +72,6 @@ public class NotificationManager extends ParsePushBroadcastReceiver {
                         ex.printStackTrace();
                         return;
                     }
-
                 }
             }
         });

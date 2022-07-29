@@ -43,11 +43,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
-    }
-
     public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
@@ -113,6 +108,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             post.setRelevance(postRelevance);
             if (image != null) {
                 Picasso.with(context).load(image.getUrl()).into(ivProfile);
+            } else {
+                ivProfile.setImageResource(R.drawable.profile_pic);
             }
             if (video != null) {
                 vvPost.setVideoURI(VideoUri);

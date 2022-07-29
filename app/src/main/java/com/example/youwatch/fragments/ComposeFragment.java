@@ -127,7 +127,6 @@ public class ComposeFragment extends Fragment {
                 etCaption.setText("");
                 videoView.setVideoURI(Uri.parse(""));
             }
-
         });
     }
 

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     Handler handler;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                intent = new Intent(SplashScreen.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(fade_in, R.anim.fade_out);
                 finish();

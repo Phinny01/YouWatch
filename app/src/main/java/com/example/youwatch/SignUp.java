@@ -47,7 +47,6 @@ public class SignUp extends AppCompatActivity {
         password = findViewById(R.id.Password);
         btnSubmit = findViewById(R.id.signup);
         ivProfile = findViewById(R.id.ivProfile);
-
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +61,6 @@ public class SignUp extends AppCompatActivity {
                 String Password = password.getText().toString();
                 user.setUsername(user_name);
                 user.setPassword(Password);
-
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {

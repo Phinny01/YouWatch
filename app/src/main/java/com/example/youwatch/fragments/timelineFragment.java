@@ -5,7 +5,6 @@ import static com.example.youwatch.SearchRelevance.getCaptionArray;
 import static com.example.youwatch.locationManager.REQUEST_LOCATION;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -54,7 +52,7 @@ public class timelineFragment extends Fragment {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 allPosts.addAll(posts);
-                captions =  getCaptionArray(posts);
+                captions = getCaptionArray(posts);
                 adapter.notifyDataSetChanged();
             }
         });

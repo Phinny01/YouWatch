@@ -12,7 +12,6 @@ public class Post extends ParseObject {
     public static final String KEY_VIDEO = "Video";
     public static final String KEY_USER = "User";
     public static final String CREATED_AT = "createdAt";
-    public static final String KEY_CATEGORY = "Category";
     public static final String KEY_LOCATION = "Location";
     public static final String KEY_VIEWS = "Views";
     public static final String KEY_RELEVANCE = "Relevance";
@@ -39,14 +38,6 @@ public class Post extends ParseObject {
 
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
-    }
-
-    public String getCategory() {
-        return getString(KEY_CATEGORY);
-    }
-
-    public void setCategory(String category) {
-        put(KEY_CATEGORY, category);
     }
 
     public ParseGeoPoint getLocation() {

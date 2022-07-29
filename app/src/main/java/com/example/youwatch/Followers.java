@@ -9,10 +9,6 @@ public class Followers extends ParseObject {
     public static final String KEY_USER = "User";
     public static final String KEY_FOLLOWER = "Follower";
 
-    public ParseUser getUser() {
-        return getParseUser(KEY_USER);
-    }
-
     public void setUser(ParseUser user) {
         put(KEY_USER, user);
     }

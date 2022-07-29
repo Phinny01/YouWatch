@@ -7,7 +7,6 @@
     android:background="?attr/colorSecondaryVariant"
     tools:context=".LoginActivity">
 
-
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
